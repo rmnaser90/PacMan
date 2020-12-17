@@ -7,7 +7,7 @@ class Matrix {
 
     _generateMatrix(rowsNo, columnsNo) {
         const matrix = []
-       
+
         for (let i = 0; i < rowsNo; i++) {
             const row = []
             for (let j = 0; j < columnsNo; j++) {
@@ -20,7 +20,7 @@ class Matrix {
     }
 
     get(row, column) {
-        if(this.matrix[row] == undefined){
+        if (this.matrix[row] == undefined) {
             return undefined
         }
         return this.matrix[row][column]
@@ -36,33 +36,20 @@ class Matrix {
 
     }
 
-    printColumn(columnNo) {
-        for (let i = 0; i < this.matrix.length; i++) {
-            console.log(this.matrix[i][columnNo] + "\n");
-
-        }
-    }
-    printRow(rowNo) {
-        let toPrint = ""
-        for (let i = 0; i < this.matrix[0].length; i++) {
-            toPrint += this.matrix[rowNo][i] + "\t";
-        }
-        console.log(toPrint);
-
-    }
     findCoordinate(value) {
 
         for (let i = 0; i < this.matrix.length; i++) {
             const row = []
             for (let j = 0; j < this.matrix[0].length; j++) {
-                if (this.matrix[i][j]=== value) {
+                if (this.matrix[i][j] === value) {
                     return `x: ${j}, y: ${i}`
                 }
             }
         }
 
     }
-    getMatrix(){
+
+    getMatrix() {
         return this.matrix
     }
 
