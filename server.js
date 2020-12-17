@@ -16,8 +16,15 @@ const server = app.listen(PORT, function () {
 const io = socket(server)
 io.on('connection', function (socket) {
     console.log("made socket connection");
-    socket.on('game', function (game) {
-        io.sockets.emit('game', game)
+    socket.on('start', function (game) {
+        io.sockets.emit('start', game)
     })
+    socket.on('move', function (direction) {
+        io.sockets.emit('move', direction)
+    })
+  
+
+
+
 })
 

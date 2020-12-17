@@ -9,65 +9,80 @@ $("#start").on('click', function () {
     $('#columns').val('')
     game.generateGame(rows, columns)
     renderer.render(game.getBoard())
-    socket.emit('game', game)
+    socket.emit('start', game)
 })
 
 $('body').on('keypress', function (e) {
     if (game.startGame) {
+        let direction
         switch (e.key) {
             case "a":
-                game.moveLeft(game.player1)
+
+                direction = { player: 'player1', move: 'moveLeft' }
                 break;
 
             case 'd':
-                game.moveRight(game.player1)
+
+                direction = { player: 'player1', move: 'moveRight' }
                 break;
 
             case 'w':
-                game.moveUp(game.player1)
+
+                direction = { player: 'player1', move: 'moveUp' }
                 break;
 
             case 's':
-                game.moveDown(game.player1)
+
+                direction = { player: 'player1', move: 'moveDown' }
                 break;
 
             case "j":
-                game.moveLeft(game.player2)
+
+                direction = { player: 'player2', move: 'moveLeft' }
                 break;
 
             case 'l':
-                game.moveRight(game.player2)
+
+                direction = { player: 'player2', move: 'moveRight' }
                 break;
 
             case 'i':
-                game.moveUp(game.player2)
+
+                direction = { player: 'player2', move: 'moveUp' }
                 break;
 
             case 'k':
-                game.moveDown(game.player2)
 
+                direction = { player: 'player2', move: 'moveDown' }
                 break;
         }
-        socket.emit('game', game)
-
+        direction.game = game
+        socket.emit('move', direction)
 
     }
 })
 
-socket.on('game', function (newGame) {
+socket.on('start', function (newGame) {
     if (!game.startGame) {
         game.generateGame(newGame.rows, newGame.columns)
+        renderer.render(game.getBoard())
     }
-    game.board.matrix = newGame.board.matrix
-    game.columns = newGame.columns
-    game.rows = newGame.rows
-    game.player1.coins = newGame.player1.coins
-    game.player2.coins = newGame.player2.coins
-    game.player1.position = newGame.player1.position
-    game.player2.position = newGame.player2.position
-    game.startGame = newGame.startGame
-    game.totalCoins = newGame.totalCoins
+})
+socket.on('move', function (direction) {
+    if (!game.startGame) {
+        const newGame = direction.game
+        game.generateGame(newGame.rows, newGame.columns)
+        game.board.matrix = newGame.board.matrix
+        game.player1.coins = newGame.player1.coins
+        game.player2.coins = newGame.player2.coins
+        game.player1.position = newGame.player1.position
+        game.player2.position = newGame.player2.position
+        game.totalCoins = newGame.totalCoins
+        game.startGame = true
 
+    }
+    const { player, move } = direction
+    game[move](game[player])
     renderer.render(game.getBoard())
     renderer.renderScore(game.getCoins())
     if (game.checkGameOver()) {
