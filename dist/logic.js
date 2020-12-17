@@ -7,12 +7,14 @@ class PacMan {
         this.player2 = {}
         this.totalCoins = 0
         this.startGame = false
-        this.items = {
+        this.CONSTANTS = {
             player1: 'Player1',
             player2: 'Player2',
             empty: 'e',
             coin: 'c',
-            wall: 'w'
+            wall: 'w',
+            MAXROWS: 18,
+            MAXCOLUMNS: 35
         }
 
     }
@@ -25,31 +27,31 @@ class PacMan {
             const y = this.getRandom('rows')
             const x = this.getRandom('columns')
             const matrix = this.board.getMatrix()
-            if (matrix[y + 1][x + 1] != this.items.wall &&
-                matrix[y - 1][x - 1] != this.items.wall &&
-                matrix[y][x] != this.items.wall) {
-                this.board.alter(y, x, this.items.wall)
+            if (matrix[y + 1][x + 1] != this.CONSTANTS.wall &&
+                matrix[y - 1][x - 1] != this.CONSTANTS.wall &&
+                matrix[y][x] != this.CONSTANTS.wall) {
+                this.board.alter(y, x, this.CONSTANTS.wall)
                 this.totalCoins -= 10
             }
         }
     }
 
     generateGame(rows, columns) {
-        if (rows >18) {
-            rows = 18
+        if (rows > this.CONSTANTS.MAXROWS) {
+            rows = this.CONSTANTS.MAXROWS
         }
-        if (columns>30) {
-            columns = 30
+        if (columns > this.CONSTANTS.MAXCOLUMNS) {
+            columns = this.CONSTANTS.MAXROWS
         }
         this.rows = rows
         this.columns = columns
         this.totalCoins = (rows * columns - 2) * 10
         this.board = new Matrix(rows, columns)
-        this.player1 = new Player(this.items.player1, 0, 0)
-        this.player2 = new Player(this.items.player2, this.columns - 1, this.rows - 1,)
+        this.player1 = new Player(this.CONSTANTS.player1, 0, 0)
+        this.player2 = new Player(this.CONSTANTS.player2, this.columns - 1, this.rows - 1,)
         this.setWalls()
-        this.board.alter(0, 0, this.items.player1)
-        this.board.alter(this.rows - 1, this.columns - 1, this.items.player2)
+        this.board.alter(0, 0, this.CONSTANTS.player1)
+        this.board.alter(this.rows - 1, this.columns - 1, this.CONSTANTS.player2)
         this.startGame = true
     }
 
@@ -57,11 +59,11 @@ class PacMan {
         const xPos = player.getPosition().xPos
         const yPos = player.getPosition().yPos
         const nextBlock = this.board.get(yPos, xPos + 1)
-        if (nextBlock == this.items.coin || nextBlock == this.items.empty) {
-            if (nextBlock == this.items.coin) {
+        if (nextBlock == this.CONSTANTS.coin || nextBlock == this.CONSTANTS.empty) {
+            if (nextBlock == this.CONSTANTS.coin) {
                 player.addCoins()
             }
-            this.board.alter(yPos, xPos, this.items.empty)
+            this.board.alter(yPos, xPos, this.CONSTANTS.empty)
             player.moveRight()
             this.board.alter(yPos, xPos + 1, player.name)
         }
@@ -71,11 +73,11 @@ class PacMan {
         const xPos = player.getPosition().xPos
         const yPos = player.getPosition().yPos
         const nextBlock = this.board.get(yPos, xPos - 1)
-        if (nextBlock == this.items.coin || nextBlock == this.items.empty) {
-            if (nextBlock == this.items.coin) {
+        if (nextBlock == this.CONSTANTS.coin || nextBlock == this.CONSTANTS.empty) {
+            if (nextBlock == this.CONSTANTS.coin) {
                 player.addCoins()
             }
-            this.board.alter(yPos, xPos, this.items.empty)
+            this.board.alter(yPos, xPos, this.CONSTANTS.empty)
             player.moveLeft()
             this.board.alter(yPos, xPos - 1, player.name)
         }
@@ -85,11 +87,11 @@ class PacMan {
         const xPos = player.getPosition().xPos
         const yPos = player.getPosition().yPos
         const nextBlock = this.board.get(yPos + 1, xPos)
-        if (nextBlock == this.items.coin || nextBlock == this.items.empty) {
-            if (nextBlock == this.items.coin) {
+        if (nextBlock == this.CONSTANTS.coin || nextBlock == this.CONSTANTS.empty) {
+            if (nextBlock == this.CONSTANTS.coin) {
                 player.addCoins()
             }
-            this.board.alter(yPos, xPos, this.items.empty)
+            this.board.alter(yPos, xPos, this.CONSTANTS.empty)
             player.moveDown()
             this.board.alter(yPos + 1, xPos, player.name)
         }
@@ -99,11 +101,11 @@ class PacMan {
         const xPos = player.getPosition().xPos
         const yPos = player.getPosition().yPos
         const nextBlock = this.board.get(yPos - 1, xPos)
-        if (nextBlock == this.items.coin || nextBlock == this.items.empty) {
-            if (nextBlock == this.items.coin) {
+        if (nextBlock == this.CONSTANTS.coin || nextBlock == this.CONSTANTS.empty) {
+            if (nextBlock == this.CONSTANTS.coin) {
                 player.addCoins()
             }
-            this.board.alter(yPos, xPos, this.items.empty)
+            this.board.alter(yPos, xPos, this.CONSTANTS.empty)
             player.moveUp()
             this.board.alter(yPos - 1, xPos, player.name)
         }
@@ -112,7 +114,7 @@ class PacMan {
     getBoard() {
         return this.board.getMatrix()
     }
-    
+
     getCoins() {
         const p1 = this.player1.getCoins()
         const p2 = this.player2.getCoins()
