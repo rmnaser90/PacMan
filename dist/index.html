@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="@fortawesome/fontawesome-free/css/all.css">
     <title>PacMan</title>
 </head>
 
@@ -14,22 +15,23 @@
             <div id="p1-coins" class="coins">Player 1</div>
             <div id="p2-coins" class="coins">Player 2</div>
         </div>
-        <div id="board">
-
+        <div id="boardContainer">
         </div>
-
         <div id="menu">
-            <input type="number" id="rows">
-            <input type="number" id="columns">
-            <button id="start">Start</button>
+            <input type="number" id="rows" placeholder="Number of rows">
+            <input type="number" id="columns" placeholder="Number of columns">
+            <button id="start"><i class="fas fa-play"></i>
+            </button>
         </div>
-
     </div>
 
-
-
-
-
+    <script id="gameOver-template" type="text/x-handlebars-template">
+        <div id="gameOver">
+            <h1 id="gameOverTxt">Game Over</h1>
+            <h2 id="winnerName">Player {{name}} won the match</h2>
+            <h2 class="winnerCoins">Total Coins: {{coins}}</h2>
+        </div>
+    </script>
     <script id="blocks-template" type="text/x-handlebars-template">
         {{#each board}}
         <div class="row">
@@ -38,12 +40,7 @@
             {{/each}}
         </div>
         {{/each}}
-
     </script>
-
-
-
-
     <script src="/jquery/dist/jquery.js"></script>
     <script src="/handlebars/dist/handlebars.js"></script>
     <script src="/Matrix.js"></script>
@@ -52,5 +49,4 @@
     <script src="renderer.js"></script>
     <script src="main.js"></script>
 </body>
-
 </html>
