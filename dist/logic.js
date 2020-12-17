@@ -8,8 +8,8 @@ class PacMan {
         this.totalCoins = 0
         this.startGame = false
         this.items = {
-            player1: 'p1',
-            player2: 'p2',
+            player1: 'Player1',
+            player2: 'Player2',
             empty: 'e',
             coin: 'c',
             wall: 'w'
@@ -35,6 +35,12 @@ class PacMan {
     }
 
     generateGame(rows, columns) {
+        if (rows >18) {
+            rows = 18
+        }
+        if (columns>30) {
+            columns = 30
+        }
         this.rows = rows
         this.columns = columns
         this.totalCoins = (rows * columns - 2) * 10

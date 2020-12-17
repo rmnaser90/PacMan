@@ -25,10 +25,12 @@
         </div>
     </div>
 
+
     <script id="gameOver-template" type="text/x-handlebars-template">
         <div id="gameOver">
+            <div id="closeWindow"><i class="fas fa-times"></i></div>
             <h1 id="gameOverTxt">Game Over</h1>
-            <h2 id="winnerName">Player {{name}} won the match</h2>
+            <h2 id="winnerName" class="winner{{name}}">{{name}} won the match</h2>
             <h2 class="winnerCoins">Total Coins: {{coins}}</h2>
         </div>
     </script>

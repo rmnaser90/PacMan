@@ -9,7 +9,7 @@ class Renderer {
         this.styleSheet = document.styleSheets
     }
 
-    
+
     setBoard(columns) {
         const rowsElements = $('.row')
         for (const row of rowsElements) {
@@ -32,8 +32,13 @@ class Renderer {
             this.styleSheet[0].cssRules[12].style.animationName = 'none'
         }, 1000)
     }
-    renderGameOver(player){
+
+    renderGameOver(player) {
         const html = this.gameOverTemplate(player)
         this.boardContainer.append(html)
+    }
+
+    closeWindow() {
+        $('#gameOver').css('display', 'none')
     }
 }
