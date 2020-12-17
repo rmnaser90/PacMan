@@ -25,31 +25,12 @@ class PacMan {
             const y = this.getRandom('rows')
             const x = this.getRandom('columns')
             const matrix = this.board.getMatrix()
-            if (matrix[y + 1][x - 1] != this.items.wall &&
+            if (matrix[y + 1][x + 1] != this.items.wall &&
                 matrix[y - 1][x - 1] != this.items.wall &&
-                matrix[y - 1][x + 1] != this.items.wall &&
                 matrix[y][x] != this.items.wall) {
                 this.board.alter(y, x, this.items.wall)
                 this.totalCoins -= 10
             }
-        }
-    }
-
-    checkGameOver() {
-        const playersCoins = this.getCoins()
-        const collectedCoins = playersCoins.p1 + playersCoins.p2
-        if (collectedCoins == this.totalCoins) {
-            this.startGame = false
-            return true
-        }
-        return false
-    }
-
-    getWinner() {
-        if (game.player1.coins > game.player2.coins) {
-            return game.player1
-        } else {
-            return game.player2
         }
     }
 
@@ -130,5 +111,23 @@ class PacMan {
         const p1 = this.player1.getCoins()
         const p2 = this.player2.getCoins()
         return { p1, p2 }
+    }
+
+    checkGameOver() {
+        const playersCoins = this.getCoins()
+        const collectedCoins = playersCoins.p1 + playersCoins.p2
+        if (collectedCoins == this.totalCoins) {
+            this.startGame = false
+            return true
+        }
+        return false
+    }
+
+    getWinner() {
+        if (game.player1.coins > game.player2.coins) {
+            return game.player1
+        } else {
+            return game.player2
+        }
     }
 }
