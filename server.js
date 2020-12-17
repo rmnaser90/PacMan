@@ -22,9 +22,5 @@ io.on('connection', function (socket) {
     socket.on('move', function (direction) {
         io.sockets.emit('move', direction)
     })
-  
-
-
-
 })
 
