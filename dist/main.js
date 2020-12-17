@@ -7,7 +7,7 @@ $("#start").on('click', function () {
     $('#rows').val('')
     const columns = $('#columns').val() || 40
     $('#columns').val('')
-    socket.emit('start', {rows,columns})
+    socket.emit('start', { rows, columns })
 })
 
 $('body').on('keypress', function (e) {
@@ -15,59 +15,53 @@ $('body').on('keypress', function (e) {
         let direction
         switch (e.key) {
             case "a":
-
                 direction = { player: 'player1', move: 'moveLeft' }
                 break;
 
             case 'd':
-
                 direction = { player: 'player1', move: 'moveRight' }
                 break;
 
             case 'w':
-
                 direction = { player: 'player1', move: 'moveUp' }
                 break;
 
             case 's':
-
                 direction = { player: 'player1', move: 'moveDown' }
                 break;
 
             case "j":
-
                 direction = { player: 'player2', move: 'moveLeft' }
                 break;
 
             case 'l':
-
                 direction = { player: 'player2', move: 'moveRight' }
                 break;
 
             case 'i':
-
                 direction = { player: 'player2', move: 'moveUp' }
                 break;
 
             case 'k':
-
                 direction = { player: 'player2', move: 'moveDown' }
                 break;
         }
-        direction.game = game
+        direction.newGame = game
         socket.emit('move', direction)
 
     }
 })
 
 socket.on('start', function (newGame) {
-        game.generateGame(newGame.rows, newGame.columns)
-        renderer.render(game.getBoard())
+    game.generateGame(newGame.rows, newGame.columns)
+    renderer.render(game.getBoard())
+    renderer.renderScore(game.getCoins())
 })
 
 socket.on('move', function (direction) {
+    const { player, move , newGame} = direction
+
     if (!game.startGame) {
-        const newGame = direction.game
         game.generateGame(newGame.rows, newGame.columns)
         game.board.matrix = newGame.board.matrix
         game.player1.coins = newGame.player1.coins
@@ -76,9 +70,8 @@ socket.on('move', function (direction) {
         game.player2.position = newGame.player2.position
         game.totalCoins = newGame.totalCoins
         game.startGame = true
-
     }
-    const { player, move } = direction
+    
     game[move](game[player])
     renderer.render(game.getBoard())
     renderer.renderScore(game.getCoins())
