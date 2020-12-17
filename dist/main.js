@@ -7,9 +7,7 @@ $("#start").on('click', function () {
     $('#rows').val('')
     const columns = $('#columns').val() || 40
     $('#columns').val('')
-    game.generateGame(rows, columns)
-    renderer.render(game.getBoard())
-    socket.emit('start', game)
+    socket.emit('start', {rows,columns})
 })
 
 $('body').on('keypress', function (e) {
@@ -63,11 +61,10 @@ $('body').on('keypress', function (e) {
 })
 
 socket.on('start', function (newGame) {
-    if (!game.startGame) {
         game.generateGame(newGame.rows, newGame.columns)
         renderer.render(game.getBoard())
-    }
 })
+
 socket.on('move', function (direction) {
     if (!game.startGame) {
         const newGame = direction.game
