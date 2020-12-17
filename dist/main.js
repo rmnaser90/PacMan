@@ -2,18 +2,10 @@ const game = new PacMan
 const renderer = new Renderer
 const socket = io.connect('/')
 
-$("#start").on('click', function () {
-    const rows = $('#rows').val() || 18
-    $('#rows').val('')
-    const columns = $('#columns').val() || 40
-    $('#columns').val('')
-    socket.emit('start', { rows, columns })
-})
-
-$('body').on('keypress', function (e) {
+const starMoving = function(key){
     if (game.startGame) {
         let direction
-        switch (e.key) {
+        switch (key) {
             case "a":
                 direction = { player: 'player1', move: 'moveLeft' }
                 break;
@@ -45,15 +37,31 @@ $('body').on('keypress', function (e) {
             case 'k':
                 direction = { player: 'player2', move: 'moveDown' }
                 break;
+                default:
+            return    
         }
         direction.newGame = game
         socket.emit('move', direction)
-
     }
+}
+$("#start").on('click', function () {
+    const rows = $('#rows').val() || 18
+    $('#rows').val('')
+    const columns = $('#columns').val() || 40
+    $('#columns').val('')
+    game.generateGame(rows, columns)
+    socket.emit('start', game)
+})
+
+
+$('body').on('keypress', function (e) {
+  starMoving(e.key)
 })
 
 socket.on('start', function (newGame) {
     game.generateGame(newGame.rows, newGame.columns)
+    game.board.matrix = newGame.board.matrix
+    game.totalCoins = newGame.totalCoins
     renderer.render(game.getBoard())
     renderer.renderScore(game.getCoins())
 })
@@ -71,7 +79,7 @@ socket.on('move', function (direction) {
         game.totalCoins = newGame.totalCoins
         game.startGame = true
     }
-    
+
     game[move](game[player])
     renderer.render(game.getBoard())
     renderer.renderScore(game.getCoins())
