@@ -37,75 +37,76 @@ class PacMan {
     }
 
     generateGame(rows, columns) {
-        if (rows > this.CONSTANTS.MAXROWS) {
-            rows = this.CONSTANTS.MAXROWS
-        }
-        if (columns > this.CONSTANTS.MAXCOLUMNS) {
-            columns = this.CONSTANTS.MAXROWS
-        }
+        const { MAXROWS, MAXCOLUMNS, player1, player2 } = this.CONSTANTS
+        rows = (rows > MAXROWS)? MAXROWS : rows
+        columns = (columns > MAXCOLUMNS)? MAXCOLUMNS : columns
         this.rows = rows
         this.columns = columns
         this.totalCoins = (rows * columns - 2) * 10
         this.board = new Matrix(rows, columns)
-        this.player1 = new Player(this.CONSTANTS.player1, 0, 0)
-        this.player2 = new Player(this.CONSTANTS.player2, this.columns - 1, this.rows - 1,)
+        this.player1 = new Player(player1, 0, 0)
+        this.player2 = new Player(player2, columns - 1, rows - 1,)
         this.setWalls()
-        this.board.alter(0, 0, this.CONSTANTS.player1)
-        this.board.alter(this.rows - 1, this.columns - 1, this.CONSTANTS.player2)
+        this.board.alter(0, 0, player1)
+        this.board.alter(rows - 1, columns - 1, player2)
         this.startGame = true
     }
 
     moveRight(player) {
+        const { empty, coin } = this.CONSTANTS
         const xPos = player.getPosition().xPos
         const yPos = player.getPosition().yPos
         const nextBlock = this.board.get(yPos, xPos + 1)
-        if (nextBlock == this.CONSTANTS.coin || nextBlock == this.CONSTANTS.empty) {
-            if (nextBlock == this.CONSTANTS.coin) {
+        if (nextBlock == coin || nextBlock == empty) {
+            if (nextBlock == coin) {
                 player.addCoins()
             }
-            this.board.alter(yPos, xPos, this.CONSTANTS.empty)
+            this.board.alter(yPos, xPos, empty)
             player.moveRight()
             this.board.alter(yPos, xPos + 1, player.name)
         }
     }
 
     moveLeft(player) {
+        const { empty, coin } = this.CONSTANTS
         const xPos = player.getPosition().xPos
         const yPos = player.getPosition().yPos
         const nextBlock = this.board.get(yPos, xPos - 1)
-        if (nextBlock == this.CONSTANTS.coin || nextBlock == this.CONSTANTS.empty) {
-            if (nextBlock == this.CONSTANTS.coin) {
+        if (nextBlock == coin || nextBlock == empty) {
+            if (nextBlock == coin) {
                 player.addCoins()
             }
-            this.board.alter(yPos, xPos, this.CONSTANTS.empty)
+            this.board.alter(yPos, xPos, empty)
             player.moveLeft()
             this.board.alter(yPos, xPos - 1, player.name)
         }
     }
 
     moveDown(player) {
+        const { empty, coin } = this.CONSTANTS
         const xPos = player.getPosition().xPos
         const yPos = player.getPosition().yPos
         const nextBlock = this.board.get(yPos + 1, xPos)
-        if (nextBlock == this.CONSTANTS.coin || nextBlock == this.CONSTANTS.empty) {
-            if (nextBlock == this.CONSTANTS.coin) {
+        if (nextBlock == coin || nextBlock == empty) {
+            if (nextBlock == coin) {
                 player.addCoins()
             }
-            this.board.alter(yPos, xPos, this.CONSTANTS.empty)
+            this.board.alter(yPos, xPos, empty)
             player.moveDown()
             this.board.alter(yPos + 1, xPos, player.name)
         }
     }
 
     moveUp(player) {
+        const { empty, coin } = this.CONSTANTS
         const xPos = player.getPosition().xPos
         const yPos = player.getPosition().yPos
         const nextBlock = this.board.get(yPos - 1, xPos)
-        if (nextBlock == this.CONSTANTS.coin || nextBlock == this.CONSTANTS.empty) {
-            if (nextBlock == this.CONSTANTS.coin) {
+        if (nextBlock == coin || nextBlock == empty) {
+            if (nextBlock == coin) {
                 player.addCoins()
             }
-            this.board.alter(yPos, xPos, this.CONSTANTS.empty)
+            this.board.alter(yPos, xPos, empty)
             player.moveUp()
             this.board.alter(yPos - 1, xPos, player.name)
         }
