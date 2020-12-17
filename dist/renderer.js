@@ -1,10 +1,11 @@
 class Renderer {
     constructor() {
         const source = $('#blocks-template').html()
-        this.template = Handlebars.compile(source)
         const gameOverSource = $('#gameOver-template').html()
-        this.gameOverTemplate = Handlebars.compile(gameOverSource)
         this.boardContainer = $('#boardContainer')
+        this.menu = $('#menu')
+        this.template = Handlebars.compile(source)
+        this.gameOverTemplate = Handlebars.compile(gameOverSource)
         this.columns = 0
         this.styleSheet = document.styleSheets
     }
@@ -15,6 +16,7 @@ class Renderer {
         for (const row of rowsElements) {
             row.style.gridTemplateColumns = `repeat(${columns}, 1fr)`
         }
+        this.menu.css('display','none')
     }
 
     renderScore(coins) {
@@ -36,6 +38,7 @@ class Renderer {
     renderGameOver(player) {
         const html = this.gameOverTemplate(player)
         this.boardContainer.append(html)
+        this.menu.css('display','grid')
     }
 
     closeWindow() {
