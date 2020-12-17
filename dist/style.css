@@ -1,11 +1,13 @@
         @keyframes zoomIN {
             from {
-                width: 0px;
-                height: 0px;
+                width: 1px;
+                height: 1px;
+                margin: 14.5px;
             }
             to {
                 width: 30px;
                 height: 30px;
+                margin: 5px;
             }
         }
 
@@ -117,7 +119,7 @@
             font-size: 200%;
         }
 
-        #gameOver{
+        #gameOver {
             position: absolute;
             width: 60vw;
             height: 50vh;
@@ -126,5 +128,5 @@
             display: grid;
             justify-items: center;
             align-items: center;
-            background-color:white;
+            background-color: white;
         }
