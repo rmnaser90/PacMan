@@ -17,6 +17,7 @@
             font-size: 200%;
             width: 100vw;
             height: 100vh;
+            font-family: 'Langar', cursive;
         }
 
         #mainContainer {
@@ -49,12 +50,16 @@
         }
 
         #boardContainer {
-            width: 100%;
+            width: 99%;
+            margin-left: auto;
+            margin-right: auto;
             height: 80%;
             display: grid;
             align-items: center;
             justify-items: center;
             background-color: antiquewhite;
+           border: 2px solid orange;
+           border-radius: 20px;
         }
 
         .row {
@@ -83,7 +88,6 @@
         .e {
             width: 40px;
             height: 40px;
-            background-color: antiquewhite;
         }
 
         .c {
@@ -100,6 +104,7 @@
             width: 100%;
             height: 100%;
             background-color: orange;
+            box-shadow: 5px 5px 6px 0.1px grey;
         }
 
         #menu {
