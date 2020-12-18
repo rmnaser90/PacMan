@@ -46,6 +46,7 @@ const starMoving = function (key) {
 }
 
 $("#start").on('click', function () {
+    playMusic()
     const rows = $('#rows').val() || 15
     $('#rows').val('')
     const columns = $('#columns').val() || 20
@@ -79,9 +80,11 @@ socket.on('move', function (direction) {
         game.startGame = true
     }
     game[move](game[player])
+    moveSoundEffect()
     renderer.render(game.getBoard())
     renderer.renderScore(game.getCoins())
     if (game.checkGameOver()) {
+        playGameOver()
         renderer.renderGameOver(game.getWinner())
     }
 })
