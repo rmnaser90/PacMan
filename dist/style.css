@@ -40,14 +40,25 @@
             justify-items: center;
             text-shadow:0px 0px 30px white;
         }
+        #musicControl{
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            cursor: pointer;
+            transition: 0.4s;
+        }
+        #musicControl:hover{
+            font-size: 150%;
+        }
 
         #p1-coins {
             color: royalblue;
+            left: 100px;
         }
 
         #p2-coins {
             color: salmon;
-            right: 0px;
+            right: 100px;
         }
 
         #boardContainer {
@@ -61,6 +72,7 @@
             background-color: antiquewhite;
            border: 2px solid orange;
            border-radius: 20px;
+           box-shadow: inset 2px 0px 7px grey;
         }
 
         .row {

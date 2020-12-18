@@ -60,6 +60,9 @@ class PacMan {
         if (nextBlock == coin || nextBlock == empty) {
             if (nextBlock == coin) {
                 player.addCoins()
+                moveSoundEffect('coin')
+            }else{
+                moveSoundEffect('movement')
             }
             this.board.alter(yPos, xPos, empty)
             player.moveRight()
@@ -75,6 +78,9 @@ class PacMan {
         if (nextBlock == coin || nextBlock == empty) {
             if (nextBlock == coin) {
                 player.addCoins()
+                moveSoundEffect('coin')
+            }else{
+                moveSoundEffect('movement')
             }
             this.board.alter(yPos, xPos, empty)
             player.moveLeft()
@@ -90,6 +96,9 @@ class PacMan {
         if (nextBlock == coin || nextBlock == empty) {
             if (nextBlock == coin) {
                 player.addCoins()
+                moveSoundEffect('coin')
+            }else{
+                moveSoundEffect('movement')
             }
             this.board.alter(yPos, xPos, empty)
             player.moveDown()
@@ -105,6 +114,9 @@ class PacMan {
         if (nextBlock == coin || nextBlock == empty) {
             if (nextBlock == coin) {
                 player.addCoins()
+                moveSoundEffect('coin')
+            }else{
+                moveSoundEffect('movement')
             }
             this.board.alter(yPos, xPos, empty)
             player.moveUp()

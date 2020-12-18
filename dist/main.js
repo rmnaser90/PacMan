@@ -1,7 +1,7 @@
 const game = new PacMan
 const renderer = new Renderer
 const socket = io.connect('/')
-
+let musicStatus = true
 const starMoving = function (key) {
     if (game.startGame) {
         let direction
@@ -46,7 +46,9 @@ const starMoving = function (key) {
 }
 
 $("#start").on('click', function () {
-    playMusic()
+    if (musicStatus) {
+        playMusic()
+    }
     const rows = $('#rows').val() || 15
     $('#rows').val('')
     const columns = $('#columns').val() || 20
@@ -80,7 +82,6 @@ socket.on('move', function (direction) {
         game.startGame = true
     }
     game[move](game[player])
-    moveSoundEffect()
     renderer.render(game.getBoard())
     renderer.renderScore(game.getCoins())
     if (game.checkGameOver()) {
@@ -89,3 +90,15 @@ socket.on('move', function (direction) {
     }
 })
 $('#boardContainer').on('click','#closeWindow', renderer.closeWindow)
+
+$('#musicControl').on('click',function () {
+    musicStatus = musicStatus? false :true
+
+    if(musicStatus){
+        renderer.musicPlay()
+        playMusic()
+    }else{
+        renderer.musicMute()
+        stopMusic()
+    }
+})

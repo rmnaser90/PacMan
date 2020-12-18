@@ -8,6 +8,7 @@ class Renderer {
         this.gameOverTemplate = Handlebars.compile(gameOverSource)
         this.columns = 0
         this.styleSheet = document.styleSheets
+        this.musicControl = $('#musicControl')
     }
 
 
@@ -17,6 +18,12 @@ class Renderer {
             row.style.gridTemplateColumns = `repeat(${columns}, 1fr)`
         }
         this.menu.css('display','none')
+    }
+    musicMute(){
+this.musicControl.html('<i class="fas fa-volume-mute"></i>')
+    }
+    musicPlay(){
+        this.musicControl.html('<i class="fas fa-volume-down"></i>')
     }
 
     renderScore(coins) {
@@ -31,7 +38,7 @@ class Renderer {
         this.boardContainer.append(html)
         this.setBoard(this.columns)
         setTimeout(() => {
-            this.styleSheet[0].cssRules[12].style.animationName = 'none'
+            this.styleSheet[0].cssRules[14].style.animationName = 'none'
         }, 1000)
     }
 
