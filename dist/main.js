@@ -49,9 +49,9 @@ $("#start").on('click', function () {
     if (musicStatus) {
         playMusic()
     }
-    const rows = $('#rows').val() || 15
+    const rows = parseInt($('#rows').val()) || 15
     $('#rows').val('')
-    const columns = $('#columns').val() || 20
+    const columns = parseInt($('#columns').val()) || 20
     $('#columns').val('')
     game.generateGame(rows, columns)
     socket.emit('start', game)
